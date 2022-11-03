@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import AdminNavigation from './components/admin/AdminNavigation'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import TopicsTable from './components/admin/pages/topics/TopicsTable';
+import ChaptersPage from './components/admin/pages/chapters/ChaptersPage';
+import TopicsPage from './components/admin/pages/topics/TopicsPage';
+import AdminMainPage from './components/admin/pages/adminMain/adminMainPage';
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Router>
+        <AdminNavigation />
+        <div className='container'>
+          <Routes>
+            <Route path='/admin/topics' element={<TopicsPage name="Topics"/>}/>
+            <Route path='/admin/chapters/:topicName/:id' element={<ChaptersPage name="Chapters" topicName="Java"/>}/>
+            <Route path='/admin/lessons'  element={<TopicsTable name="Lessons"/>}/>
+            <Route path='/admin/content-lesson'  element={<TopicsTable name="Content lesson"/>}/>
+            <Route path='/admin/problems' element={<TopicsTable name="Problems"/>}/>
+            <Route path='/admin' element ={<AdminMainPage/>} />
+          </Routes>
+        </div>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
