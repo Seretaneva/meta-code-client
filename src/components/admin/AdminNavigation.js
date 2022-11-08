@@ -14,7 +14,7 @@ function AdminNavigation () {
           <Nav.Link eventKey='/admin/chapters' href='/admin/chapters/java/2'>
             chapters
           </Nav.Link>
-          <Nav.Link eventKey='/admin/lessons' href='/admin/lessons'>
+          <Nav.Link eventKey='/admin/lessons' href='/admin/lessons/java/2/*/*'>
             lessons
           </Nav.Link>
           <Nav.Link

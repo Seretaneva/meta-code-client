@@ -2,14 +2,14 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react'
 
-function TopicsList (params) {
-  const { nameOfTopic } = params
+function ChaptersList (params) {
+  const { nameOfTopic, hrefValue, nameOfChapter, topicId } = params
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [topics, setItems] = useState([])
+  const [chapters, setItems] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/admin/topic/all')
+    fetch('http://localhost:8080/admin/chapter/all/' + topicId)
       .then(res => res.json())
       .then(
         result => {
@@ -31,28 +31,38 @@ function TopicsList (params) {
     return (
       <div>
         <ListGroup>
-          {topics.map(topic =>
-            topic.topicName === nameOfTopic ? (
+          {chapters.map(chapter =>
+            chapter.chapterName === nameOfChapter ? (
               <ListGroup.Item
-                key={topic.topicId}
+                key={chapter.chapterId}
                 variant='dark'
                 action
                 href={
-                  '/admin/chapters/' + topic.topicName + '/' + topic.topicId
+                  '/admin/' +
+                  hrefValue +
+                  '/' +
+                  nameOfTopic +
+                  '/' +
+                  topicId + '/' + chapter.chapterName + '/' + chapter.chapterId
                 }
               >
-                {topic.topicName}
+                {chapter.chapterName}
               </ListGroup.Item>
             ) : (
               <ListGroup.Item
-                key={topic.topicId}
+                key={chapter.chapterId}
                 active={false}
                 action
                 href={
-                  '/admin/chapters/' + topic.topicName + '/' + topic.topicId
+                  '/admin/' +
+                  hrefValue +
+                  '/' +
+                  nameOfTopic +
+                  '/' +
+                  topicId + '/' + chapter.chapterName + '/' + chapter.chapterId
                 }
               >
-                {topic.topicName}
+                {chapter.chapterName}
               </ListGroup.Item>
             )
           )}
@@ -62,4 +72,4 @@ function TopicsList (params) {
   }
 }
 
-export default TopicsList
+export default ChaptersList

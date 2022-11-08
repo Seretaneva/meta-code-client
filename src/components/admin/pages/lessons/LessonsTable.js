@@ -4,35 +4,39 @@ import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { FaRegTrashAlt } from 'react-icons/fa'
-import EditChapter from './EditChapter'
+import EditLesson from './EditLesson'
 
-function ChaptersTable () {
+function LessonsTable () {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [chapters, setItems] = useState([])
+  const [lessons, setItems] = useState([])
 
-  const { id } = useParams()
+  const { id, chapterId } = useParams()
 
   async function handleDelete (id) {
-    await fetch(`http://localhost:8080/admin/chapter/delete/${id}`, {
+    await fetch(`http://localhost:8080/admin/lesson/delete/${id}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(() => {
-      const newChapters = [...chapters]
+      const newLessons = [...lessons]
 
-      const index = chapters.findIndex(chapter => chapter.chapterId === id)
+      const index = lessons.findIndex(lesson => lesson.lessonId === id)
 
-      newChapters.splice(index, 1)
+      newLessons.splice(index, 1)
 
-      setItems(newChapters)
+      setItems(newLessons)
     })
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8080/admin/chapter/all/${id}`)
+    var tempId = chapterId
+    if (tempId === '*') {
+      tempId = ' '
+    }
+    fetch(`http://localhost:8080/admin/lesson/all/${tempId}`)
       .then(res => res.json())
       .then(
         result => {
@@ -45,9 +49,8 @@ function ChaptersTable () {
         }
       )
   }, [])
-  if (id === '*') {
-    return <h2></h2>
-  } else if (error) {
+
+  if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
     return <div>Loading...</div>
@@ -64,22 +67,22 @@ function ChaptersTable () {
           </thead>
 
           <tbody>
-            {chapters.map(chapter => (
-              <tr key={chapter.chapterId}>
-                <td>{chapter.chapterId}</td>
-                <td>{chapter.chapterName}</td>
+            {lessons.map(lesson => (
+              <tr key={lesson.lessonId}>
+                <td>{lesson.lessonId}</td>
+                <td>{lesson.lessonName}</td>
                 <td>
                   <Button
                     variant='link'
-                    onClick={e => handleDelete(chapter.chapterId, e)}
+                    onClick={e => handleDelete(lesson.lessonId, e)}
                   >
                     <FaRegTrashAlt color='black' />
                   </Button>
                 </td>
                 <td>
-                  <EditChapter
-                    chapterId={chapter.chapterId}
-                    chapterName={chapter.chapterName}
+                <EditLesson
+                    lessonId={lesson.lessonId}
+                    lessonName={lesson.lessonName}
                   />
                 </td>
               </tr>
@@ -91,4 +94,4 @@ function ChaptersTable () {
   }
 }
 
-export default ChaptersTable
+export default LessonsTable

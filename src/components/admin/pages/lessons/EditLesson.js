@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import EditChapterForm from './EditChapterForm'
+import EditLessonForm from './EditLessonForm'
 import { FaRegEdit } from 'react-icons/fa'
 
-export default function EditChapter (props) {
+export default function EditLesson (props) {
   const [show, setShow] = React.useState(false)
 
   const handleClose = () => setShow(false)
@@ -11,20 +11,19 @@ export default function EditChapter (props) {
 
   // Pass this callback to the LoginForm
   const handleSubmit = e => {
-    console.log("asda")
     e.preventDefault()
-    const chapterId = props.chapterId
-    const newChapterName = e.target[0].value
+    const lessonId = props.lessonId
+    const newLessonName = e.target[0].value
 
     const headers = new Headers({
       'Content-Type': 'application/json'
     })
 
     var jsonData = {
-      chapterName: newChapterName
+      lessonName: newLessonName
     }
 
-    fetch(`http://localhost:8080/admin/chapter/edit/${chapterId}`, {
+    fetch(`http://localhost:8080/admin/lesson/edit/${lessonId}`, {
       method: 'PUT',
       body: JSON.stringify(jsonData),
       headers: headers
@@ -42,13 +41,13 @@ export default function EditChapter (props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          <EditChapterForm
+          <EditLessonForm
             handleSubmit={handleSubmit}
-            chapterValue={props.chapterName}
+            lessonValue={props.lessonName}
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' type='submit' form='chapterForm'>
+          <Button variant='secondary' type='submit' form='lessonForm'>
             Edit
           </Button>
         </Modal.Footer>

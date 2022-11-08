@@ -33,4 +33,7 @@ We have admin page, where you can make CRUD operations with content, topic, chap
 I am a java developer with 2 years of experience. Some time ago I decided to make a portal about programming in Romanian. Recently I started learning React technologies, to develop the meta-code portal. In my opinion, some things in programming are quite difficult to explain, that's why I feel that a portal in Romanian is needed, but clearly, as an advice, I insist to all programmers to learn English well in order to document themselves more easily and to be able to work in multinational companies!
 
 ### Va multumesc!
+<<<<<<< HEAD
 
+=======
+>>>>>>> e6fca53c0f7410a0b2c40475cb996296f106d7bf
