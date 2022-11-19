@@ -4,9 +4,9 @@ import Navbar from 'react-bootstrap/Navbar'
 
 function AdminNavigation () {
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar style={{alignContent:'center'}} bg='dark' variant='dark'>
       <Container>
-        <Navbar.Brand href='/admin'>admin</Navbar.Brand>
+        <Navbar.Brand  href='/admin'>admin</Navbar.Brand>
         <Nav className='me-auto'>
           <Nav.Link eventKey='/admin/topics' href='/admin/topics'>
             topics

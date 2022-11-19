@@ -10,6 +10,7 @@ import ChaptersPage from './components/admin/pages/chapters/ChaptersPage';
 import TopicsPage from './components/admin/pages/topics/TopicsPage';
 import AdminMainPage from './components/admin/pages/adminMain/adminMainPage';
 import LessonsPage from './components/admin/pages/lessons/LessonsPage';
+import LessonContentPage from './components/admin/pages/lessonContent/LessonContentPage';
 
 function App () {
   return (
@@ -24,6 +25,7 @@ function App () {
             <Route path='/admin/content-lesson'  element={<TopicsTable name="Content lesson"/>}/>
             <Route path='/admin/problems' element={<TopicsTable name="Problems"/>}/>
             <Route path='/admin' element ={<AdminMainPage/>} />
+            <Route path='/admin/lessonContent' element = {<LessonContentPage/>} />
           </Routes>
         </div>
       </Router>
