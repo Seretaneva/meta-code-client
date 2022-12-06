@@ -21,6 +21,7 @@ function LessonsPage () {
         <Container>
           <Row>
             <Col lg={{ span: 2 }} xs={{ order: 'first' }}>
+              <br></br><br></br><br></br>
               <TopicsList
                 nameOfTopic={topicName}
                 hrefValue='lessons'
@@ -28,9 +29,12 @@ function LessonsPage () {
               />
             </Col>
             <Col lg={{ span: 7 }} xs={{ order: 13 }}>
+            <br></br><br></br><br></br>
               <LessonsTable chapterId={chapterId} />
             </Col>
+            
             <Col lg={{ span: 2 }} xs={{ order: 'last' }}>
+            <br></br><br></br><br></br>
               <ChaptersList
                 nameOfTopic={topicName}
                 topicId={id}

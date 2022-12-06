@@ -6,27 +6,24 @@ import Button from 'react-bootstrap/Button'
 function CreateLessonContents ({ addContent }) {
   const [contentIndex, setContentIndex] = useState('')
 
-  const handleChangeIndex = e => setContentIndex(e.target.value)
+  const handleChangeIndex = event => setContentIndex(event.target.value)
 
   const [contentImage, setContentImage] = useState(undefined)
 
   const handleChangeImage = event => {
-    setContentImage({
-      contentImage: URL.createObjectURL(event.target.files[0])
-    })
+    setContentImage(URL.createObjectURL(event.target.files[0]))
   }
 
   const [contentType, setContentType] = useState('PARAGRAPH')
 
   const [contentParagraph, setContentParagraph] = useState('')
 
-  const handleChangeParagraph = e => setContentParagraph(e.target.value)
+  const handleChangeParagraph = event => setContentParagraph(event.target.value)
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log(contentImage)
-    console.log(contentIndex)
-    console.log(contentParagraph)
+
+    addContent({ contentIndex, contentParagraph, contentImage })
     setContentParagraph(' ')
     setContentIndex(' ')
     setContentImage(undefined)
@@ -53,9 +50,10 @@ function CreateLessonContents ({ addContent }) {
           type='file'
           name='contentImage'
           id='contentImage'
-          checked={contentImage === 'contentImage'}
+          // checked={contentImage === 'contentImage'}
           onChange={handleChangeImage}
         />
+        {console.log(contentImage)}
       </div>
     )
 
@@ -82,6 +80,8 @@ function CreateLessonContents ({ addContent }) {
           <option value='PARAGRAPH'>paragraph</option>
           <option value='IMAGE'>image</option>
           <option value='CODESNIPET'>code snipet</option>
+          <option value='SUBTITLE'>subtitle</option>
+          <option value='ENUMERATION'>enumeration</option>
         </Form.Control>
 
         {selectedForm}

@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { FaRegTrashAlt } from 'react-icons/fa'
+import { FaRegTrashAlt, FaArrowUp } from 'react-icons/fa'
 import EditLesson from './EditLesson'
+import CreateLesson from './CreateLesson'
 
 function LessonsTable () {
   const [error, setError] = useState(null)
@@ -62,7 +63,7 @@ function LessonsTable () {
             <tr>
               <th rowSpan={2}>ID</th>
               <th rowSpan={2}>name</th>
-              <th colSpan={2}> Actions</th>
+              <th colSpan={3}> Actions</th>
             </tr>
           </thead>
 
@@ -80,15 +81,24 @@ function LessonsTable () {
                   </Button>
                 </td>
                 <td>
-                <EditLesson
+                  <EditLesson
                     lessonId={lesson.lessonId}
                     lessonName={lesson.lessonName}
                   />
+                </td>
+                <td>
+                  <Button
+                    variant='link'
+                    onClick={e => handleDelete(lesson.lessonId, e)}
+                  >
+                    <FaArrowUp color='black' />
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
+        <CreateLesson chapterId={chapterId} />
       </div>
     )
   }

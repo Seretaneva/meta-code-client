@@ -1,9 +1,8 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import EditChapterForm from './EditChapterForm'
-import { FaRegEdit } from 'react-icons/fa'
+import EditLessonForm from './EditLessonForm'
 
-export default function EditChapter (props) {
+export default function CreateLesson (props) {
   const [show, setShow] = React.useState(false)
 
   const handleClose = () => setShow(false)
@@ -13,21 +12,26 @@ export default function EditChapter (props) {
   const handleSubmit = e => {
     e.preventDefault()
     const chapterId = props.chapterId
-    const newChapterName = e.target[0].value
+    const newLessonName = e.target[0].value
 
     const headers = new Headers({
       'Content-Type': 'application/json'
     })
 
     var jsonData = {
-      chapterName: newChapterName
+      lessonName: newLessonName
     }
 
-    fetch(`http://localhost:8080/admin/chapter/edit/${chapterId}`, {
+    const requestOptions = {
       method: 'PUT',
-      body: JSON.stringify(jsonData),
-      headers: headers
-    }).then(() => {
+      headers: headers,
+      body: JSON.stringify(jsonData)
+    }
+
+    fetch(
+      `http://localhost:8080/admin/lesson/create/${chapterId}`,
+      requestOptions
+    ).then(() => {
       window.location.reload(false)
     })
     handleClose()
@@ -35,20 +39,17 @@ export default function EditChapter (props) {
 
   return (
     <>
-      <Button variant='link' onClick={handleShow}>
-        <FaRegEdit color='black' />
+      <Button variant='secondary' onClick={handleShow}>
+        Create lesson
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          <EditChapterForm
-            handleSubmit={handleSubmit}
-            chapterValue={props.chapterName}
-          />
+          <EditLessonForm handleSubmit={handleSubmit} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' type='submit' form='chapterForm'>
-            Edit
+          <Button variant='secondary' type='submit' form='lessonForm'>
+            Create
           </Button>
         </Modal.Footer>
       </Modal>

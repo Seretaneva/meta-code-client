@@ -9,7 +9,7 @@ export default function EditLessonForm ({ handleSubmit, lessonValue }) {
       <Form.Group className='mb-3' controlId='lessonId'>
         <Form.Label>lesson name</Form.Label>
         <Form.Control defaultValue={lessonValue} />
-        <Form.Text className='text-muted'>Edit lesson!</Form.Text>
+        <Form.Text className='text-muted'>tap lesson name!</Form.Text>
       </Form.Group>
       <Button size='sm' hidden={true} onClick={console.log(lessonValue)}></Button>
     </Form>
