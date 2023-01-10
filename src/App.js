@@ -25,7 +25,7 @@ function App () {
             <Route path='/admin/content-lesson'  element={<TopicsTable name="Content lesson"/>}/>
             <Route path='/admin/problems' element={<TopicsTable name="Problems"/>}/>
             <Route path='/admin' element ={<AdminMainPage/>} />
-            <Route path='/admin/lessonContent' element = {<LessonContentPage/>} />
+            <Route path='/admin/lessonContent/:lessonId' element = {<LessonContentPage/>} />
           </Routes>
         </div>
       </Router>

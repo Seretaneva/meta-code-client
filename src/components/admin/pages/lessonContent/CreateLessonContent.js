@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 function CreateLessonContents ({ addContent }) {
+
   const [contentIndex, setContentIndex] = useState('')
 
   const handleChangeIndex = event => setContentIndex(event.target.value)

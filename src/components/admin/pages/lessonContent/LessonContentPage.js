@@ -5,8 +5,10 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 
 function LessonContentPage () {
+  const {lessonId} = useParams();
   const [contents, updateContents] = useState([])
 
   const addContent = content => {
@@ -26,38 +28,26 @@ function LessonContentPage () {
 
     contents.forEach(content => {
       if (content.contentImage === undefined) {
-
         var jsonData = {
           lessonIndex: content.contentIndex,
           lessonZoneType: 'PARAGRAPH',
           lessonZoneContent: content.contentParagraph
-          
         }
 
         const requestOptions = {
           method: 'PUT',
           headers: headers,
           body: JSON.stringify(jsonData)
-      };
+        }
 
-
-       
-        fetch(`http://localhost:8080/admin/lessonZone/create/5`, requestOptions).then(() => {
+        fetch(
+          `http://localhost:8080/admin/lessonZone/create/${lessonId}`,
+          requestOptions
+        ).then(() => {
           window.location.reload(false)
         })
       }
     })
-
-    // fetch(`http://localhost:8080/admin/topic/create`, {
-    //   method: 'POST',
-    //   body: JSON.stringify(jsonData),
-    //   headers: headers
-    // }).then(() => {
-    //   window.location.reload(false)
-    // })
-
-    // handleClose()
-    // alert("azaza")
   }
 
   return (

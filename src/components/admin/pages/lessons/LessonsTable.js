@@ -6,13 +6,14 @@ import { useParams } from 'react-router-dom'
 import { FaRegTrashAlt, FaArrowUp } from 'react-icons/fa'
 import EditLesson from './EditLesson'
 import CreateLesson from './CreateLesson'
+import { useNavigate } from "react-router-dom";
 
 function LessonsTable () {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [lessons, setItems] = useState([])
-
-  const { id, chapterId } = useParams()
+  let navigate = useNavigate();
+  const { chapterId } = useParams()
 
   async function handleDelete (id) {
     await fetch(`http://localhost:8080/admin/lesson/delete/${id}`, {
@@ -30,6 +31,13 @@ function LessonsTable () {
 
       setItems(newLessons)
     })
+  }
+
+
+  function routeToLessonZone(id) {
+    
+  // Somewhere in your code, e.g. inside a handler:
+  navigate("/admin/lessonContent/" + id);
   }
 
   useEffect(() => {
@@ -89,7 +97,7 @@ function LessonsTable () {
                 <td>
                   <Button
                     variant='link'
-                    onClick={e => handleDelete(lesson.lessonId, e)}
+                    onClick={e=>routeToLessonZone(lesson.lessonId,e)}
                   >
                     <FaArrowUp color='black' />
                   </Button>
