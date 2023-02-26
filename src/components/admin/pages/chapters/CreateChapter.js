@@ -14,7 +14,9 @@ export default function CreateChapter (props) {
     const chapterName = e.target[0].value
 
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
     })
 
     var jsonData = {
@@ -24,7 +26,8 @@ export default function CreateChapter (props) {
     fetch(`http://localhost:8080/admin/chapter/create/${topicId}`, {
       method: 'PUT',
       body: JSON.stringify(jsonData),
-      headers: headers
+      headers: headers,
+      mode:'cors'
     }).then(() => {
       window.location.reload(false)
     })

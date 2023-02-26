@@ -1,4 +1,5 @@
 function AdminMainPage () {
+  console.log(localStorage.getItem('token') + " mda")
   return (
     <div>
       <br></br>

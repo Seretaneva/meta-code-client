@@ -16,7 +16,9 @@ export default function EditTopic (props) {
     const newTopicName = e.target[0].value
 
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
     })
 
     var jsonData = {

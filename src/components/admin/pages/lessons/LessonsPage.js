@@ -6,7 +6,6 @@ import LessonsTable from './LessonsTable'
 
 import { useParams } from 'react-router-dom'
 import TopicsList from '../topics/TopicsList'
-//import CreateChapter from './CreateChapter'
 
 function LessonsPage () {
   const { id } = useParams()

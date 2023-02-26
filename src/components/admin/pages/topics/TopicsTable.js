@@ -6,6 +6,7 @@ import { FaRegTrashAlt } from 'react-icons/fa'
 import EditTopic from './EditTopic'
 
 function TopicsTable (props) {
+  console.log(localStorage.getItem('token'))
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [topics, setItems] = useState([])
@@ -15,8 +16,11 @@ function TopicsTable (props) {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors'
     }).then(() => {
       const newTopics = [...topics]
 
@@ -29,7 +33,13 @@ function TopicsTable (props) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:8080/admin/topic/all')
+    fetch('http://localhost:8080/admin/topic/all', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors'
+    })
       .then(res => res.json())
       .then(
         result => {

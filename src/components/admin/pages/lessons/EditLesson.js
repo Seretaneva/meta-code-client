@@ -9,14 +9,15 @@ export default function EditLesson (props) {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  // Pass this callback to the LoginForm
   const handleSubmit = e => {
     e.preventDefault()
     const lessonId = props.lessonId
     const newLessonName = e.target[0].value
 
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
     })
 
     var jsonData = {
@@ -26,7 +27,8 @@ export default function EditLesson (props) {
     fetch(`http://localhost:8080/admin/lesson/edit/${lessonId}`, {
       method: 'PUT',
       body: JSON.stringify(jsonData),
-      headers: headers
+      headers: headers,
+      mode: 'cors'
     }).then(() => {
       window.location.reload(false)
     })

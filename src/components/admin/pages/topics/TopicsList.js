@@ -9,7 +9,13 @@ function TopicsList (params) {
   const [topics, setItems] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/admin/topic/all')
+    fetch('http://localhost:8080/admin/topic/all', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors'
+    })
       .then(res => res.json())
       .then(
         result => {

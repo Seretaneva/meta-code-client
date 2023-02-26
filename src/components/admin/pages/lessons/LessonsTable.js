@@ -6,22 +6,48 @@ import { useParams } from 'react-router-dom'
 import { FaRegTrashAlt, FaArrowUp } from 'react-icons/fa'
 import EditLesson from './EditLesson'
 import CreateLesson from './CreateLesson'
-import { useNavigate } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal'
 
 function LessonsTable () {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [lessons, setItems] = useState([])
-  let navigate = useNavigate();
   const { chapterId } = useParams()
+  const [lessonContent, setLessonContent] = useState('')
+  const [lessonId, setLessonId] = useState(null)
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = id => {
+    setLessonId(id)
+    setShow(true)
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    await fetch(`http://localhost:8080/admin/lesson/${lessonId}/insert`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain',
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors',
+      body: lessonContent
+    })
+    handleClose()
+  }
 
   async function handleDelete (id) {
     await fetch(`http://localhost:8080/admin/lesson/delete/${id}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors'
     }).then(() => {
       const newLessons = [...lessons]
 
@@ -33,19 +59,18 @@ function LessonsTable () {
     })
   }
 
-
-  function routeToLessonZone(id) {
-    
-  // Somewhere in your code, e.g. inside a handler:
-  navigate("/admin/lessonContent/" + id);
-  }
-
   useEffect(() => {
     var tempId = chapterId
     if (tempId === '*') {
       tempId = ' '
     }
-    fetch(`http://localhost:8080/admin/lesson/all/${tempId}`)
+    fetch(`http://localhost:8080/admin/lesson/all/${tempId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')} `,
+        'Access-Control-Allow-Origin': '*'
+      },
+      mode: 'cors'
+    })
       .then(res => res.json())
       .then(
         result => {
@@ -97,7 +122,7 @@ function LessonsTable () {
                 <td>
                   <Button
                     variant='link'
-                    onClick={e=>routeToLessonZone(lesson.lessonId,e)}
+                    onClick={e => handleShow(lesson.lessonId)}
                   >
                     <FaArrowUp color='black' />
                   </Button>
@@ -106,6 +131,29 @@ function LessonsTable () {
             ))}
           </tbody>
         </Table>
+        {/* ... */}
+        <>
+          <Modal centered show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Insert Content</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <form onSubmit={handleSubmit}>
+                <div className='form-group'>
+                  <textarea
+                    className='form-control'
+                    value={lessonContent}
+                    onChange={e => setLessonContent(e.target.value)}
+                  />
+                </div>
+                <br></br>
+                <Button variant='primary' type='submit'>
+                  Submit
+                </Button>
+              </form>
+            </Modal.Body>
+          </Modal>
+        </>
         <CreateLesson chapterId={chapterId} />
       </div>
     )

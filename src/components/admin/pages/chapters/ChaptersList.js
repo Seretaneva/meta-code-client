@@ -9,7 +9,11 @@ function ChaptersList (params) {
   const [chapters, setItems] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/admin/chapter/all/' + topicId)
+    fetch('http://localhost:8080/admin/chapter/all/' + topicId,{headers: {
+      'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')} `,
+    'Access-Control-Allow-Origin': '*'
+    },mode:'cors'})
       .then(res => res.json())
       .then(
         result => {

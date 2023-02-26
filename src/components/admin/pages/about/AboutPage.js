@@ -1,0 +1,45 @@
+import React, { useState } from 'react'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
+const AboutPage = () => {
+  const [content, setContent] = useState('')
+
+  const handleChange = event => {
+    setContent(event.target.value)
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    const response = await fetch('http://localhost:8080/admin/about/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
+      },mode:'cors',
+      body: JSON.stringify({ content })
+    })
+    if (response.ok) {
+      console.log('About content updated successfully')
+    } else {
+      console.error('Failed to update About content')
+    }
+  }
+
+  return (
+    <div>
+      <br></br>
+      <br></br>
+      <Form onSubmit={handleSubmit}>
+        <Form.Control as='textarea' value={content} onChange={handleChange} />
+        <br></br>
+        <Button variant='secondary' type='submit'>
+          Post content
+        </Button>
+      </Form>
+    </div>
+  )
+}
+
+export default AboutPage

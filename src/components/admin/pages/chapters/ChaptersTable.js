@@ -17,9 +17,10 @@ function ChaptersTable () {
     await fetch(`http://localhost:8080/admin/chapter/delete/${id}`, {
       method: 'DELETE',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
+      },mode:'cors'
     }).then(() => {
       const newChapters = [...chapters]
 
@@ -32,7 +33,13 @@ function ChaptersTable () {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8080/admin/chapter/all/${id}`)
+    fetch(`http://localhost:8080/admin/chapter/all/${id}`,{
+      headers: {
+        'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
+      },mode:'cors'
+    })
       .then(res => res.json())
       .then(
         result => {

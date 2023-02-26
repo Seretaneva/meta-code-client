@@ -15,7 +15,9 @@ export default function CreateLesson (props) {
     const newLessonName = e.target[0].value
 
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')} `,
+      'Access-Control-Allow-Origin': '*'
     })
 
     var jsonData = {
@@ -25,7 +27,8 @@ export default function CreateLesson (props) {
     const requestOptions = {
       method: 'PUT',
       headers: headers,
-      body: JSON.stringify(jsonData)
+      body: JSON.stringify(jsonData),
+      mode: 'cors'
     }
 
     fetch(
