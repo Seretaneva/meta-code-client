@@ -24,6 +24,9 @@ function AdminNavigation() {
           <Nav.Link eventKey='/admin/problems' href='/admin/problems'>
             problems
           </Nav.Link>
+          <Nav.Link eventKey='/admin/sponsos' href='/admin/sponsors'>
+            sponsors
+          </Nav.Link>
           <Nav.Link eventKey='/admin/about' href='/admin/about'>
             about
           </Nav.Link>
