@@ -1,9 +1,13 @@
-import './App.css'
+import { useEffect, useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation
+} from 'react-router-dom'
 import AdminNavigation from './components/admin/AdminNavigation'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import TopicsTable from './components/admin/pages/topics/TopicsTable'
 import ChaptersPage from './components/admin/pages/chapters/ChaptersPage'
-import TopicsPage from './components/admin/pages/topics/TopicsPage'
 import AdminMainPage from './components/admin/pages/adminMain/adminMainPage'
 import LessonsPage from './components/admin/pages/lessons/LessonsPage'
 import AboutPage from './components/admin/pages/about/AboutPage'
@@ -12,59 +16,96 @@ import LoginPage from './components/admin/pages/authenticate/LoginPage'
 import SponsorsPage from './components/admin/pages/sponsors/SponsorsPage'
 import PublicNavigation from './components/public/PublicNavigation'
 import TopicsNavigation from './components/public/TopicsNavigation'
-import PublicFooter from './components/public/PublicFooter'
+import ContentNavigation from './components/public/ContentNavigation'
+import HomeComponent from './components/public/HomeComponent'
+import './App.css';
 
 function App () {
-  const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const location = useLocation()
+  const isAdminPage = location.pathname.startsWith('/admin')
+  const [selectedTopic, setSelectedTopic] = useState(null)
+  const [chapters, setChapters] = useState([])
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    if (selectedTopic) {
+      fetch(`http://localhost:8080/chapter/${selectedTopic.topicId}/all`, {
+        mode: 'cors'
+      })
+        .then(res => res.json())
+        .then(
+          result => {
+            setIsLoaded(true)
+            setChapters(result)
+          },
+          error => {
+            setIsLoaded(true)
+            setError(error)
+          }
+        )
+    } else {
+      setChapters([])
+    }
+  }, [selectedTopic])
+
+  const handleTopicSelect = topic => {
+    setSelectedTopic(topic)
+  }
+
   return (
     <div className='App'>
-  
-      {isAdminPage ? <AdminNavigation /> : <PublicNavigation/>}
-      {isAdminPage ? null : <TopicsNavigation/> }
-        <div className='container'>
-          <Routes>
-            <Route
-              path='/admin/topics'
-              element={<TopicsPage name='Topics' />}
-            />
-            <Route
-              path='/admin/chapters/:topicName/:id'
-              element={<ChaptersPage name='Chapters' topicName='Java' />}
-            />
-            <Route
-              path='/admin/lessons/:topicName/:id/:chapterName/:chapterId'
-              element={<LessonsPage name='Lessons' />}
-            />
-            <Route
-              path='/admin/content-lesson'
-              element={<TopicsTable name='Content lesson' />}
-            />
-            <Route
-              path='/admin/problems'
-              element={<ProblemPage name='problems' />}
-            />
-             <Route
-              path='/admin/sponsors'
-              element={<SponsorsPage name='sponsors' />}
-            />
-            <Route path='/admin/about' element={<AboutPage />} />
-            <Route path='/admin' element={<AdminMainPage />} />
-            <Route path='/admin/login' element={<LoginPage />} />
-          </Routes>
-          <PublicFooter></PublicFooter>
-        </div>
-
+      {isAdminPage ? (
+        <AdminNavigation />
+      ) : (
+        <PublicNavigation handleTopicSelect={handleTopicSelect} />
+      )}
+      {isAdminPage ? null : (
+       false
+      )}
+      <div className='containerr'>
+        <Routes>
+          <Route path='/admin/topics' element={<TopicsTable name='Topics' />} />
+          <Route
+            path='/admin/chapters/:topicName/:id'
+            element={<ChaptersPage name='Chapters' topicName='Java' />}
+          />
+          <Route
+            path='/admin/lessons/:topicName/:id/:chapterName/:chapterId'
+            element={<LessonsPage name='Lessons' />}
+          />
+          <Route
+            path='/admin/content-lesson'
+            element={<TopicsTable name='Content lesson' />}
+          />
+          <Route
+            path='/admin/problems'
+            element={<ProblemPage name='problems' />}
+          />
+          <Route
+            path='/admin/sponsors'
+            element={<SponsorsPage name='sponsors' />}
+          />
+          <Route path='/admin/about' element={<AboutPage />} />
+          <Route path='/admin' element={<AdminMainPage />} />
+          <Route path='/admin/login' element={<LoginPage />} />
+          {/* <Route path='/topics/:id' element={<ChapterNavigation />} /> */}
+          <Route path='/topics/:id' element={<ContentNavigation />} />
+          <Route path='/topics/:id' element={<ContentNavigation />} />
+          <Route path='/' element={<HomeComponent />} />
+        </Routes>
+        {/* <PublicFooter /> */}
+      </div>
     </div>
   )
 }
 
-function Main() {
+function Main () {
   return (
     <Router>
       <App />
     </Router>
-  );
+  )
 }
 
 export default Main

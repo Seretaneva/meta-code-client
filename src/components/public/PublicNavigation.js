@@ -1,11 +1,13 @@
 import styles from "./PublicApp.module.css";
+import { useNavigate } from 'react-router-dom';
 
 function PublicNavigation () {
+  const navigate = useNavigate();
   return (
     <div>
       <div className={styles.main_nav}>
         <div className={styles.logo}>
-          <a className={styles.logo__text} href='www.google.com'>
+          <a className={styles.logo__text} href='/'>
             Meta-Code
           </a>
         </div>
