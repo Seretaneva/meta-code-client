@@ -29,7 +29,10 @@ function PublicFooter () {
                 If you have any questions or feedback, please don't hesitate to
                 reach out to us via email. We'd love to hear from you!
               </p>
-              <a href='mailto:metacodetyping@gmail.com' className='btn btn-primary'>
+              <a
+                href='mailto:metacodetyping@gmail.com'
+                className='btn btn-primary'
+              >
                 Email Us
               </a>
             </div>

@@ -18,7 +18,7 @@ import PublicNavigation from './components/public/PublicNavigation'
 import TopicsNavigation from './components/public/TopicsNavigation'
 import ContentNavigation from './components/public/ContentNavigation'
 import HomeComponent from './components/public/HomeComponent'
-import './App.css';
+import './App.css'
 
 function App () {
   const location = useLocation()
@@ -60,9 +60,7 @@ function App () {
       ) : (
         <PublicNavigation handleTopicSelect={handleTopicSelect} />
       )}
-      {isAdminPage ? null : (
-       false
-      )}
+      {isAdminPage ? null : false}
       <div className='containerr'>
         <Routes>
           <Route path='/admin/topics' element={<TopicsTable name='Topics' />} />
@@ -89,9 +87,11 @@ function App () {
           <Route path='/admin/about' element={<AboutPage />} />
           <Route path='/admin' element={<AdminMainPage />} />
           <Route path='/admin/login' element={<LoginPage />} />
-          {/* <Route path='/topics/:id' element={<ChapterNavigation />} /> */}
-          <Route path='/topics/:id' element={<ContentNavigation />} />
-          <Route path='/topics/:id' element={<ContentNavigation />} />
+          <Route
+            path='/topics/:topicId/lessons/:lessonId'
+            element={<ContentNavigation />}
+          />
+          <Route path='/topics/:topicId' element={<ContentNavigation />} />
           <Route path='/' element={<HomeComponent />} />
         </Routes>
         {/* <PublicFooter /> */}

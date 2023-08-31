@@ -1,107 +1,104 @@
-import React, { useEffect, useRef } from 'react'
-import './../../App.css'
-import PublicNavigation from './PublicNavigation'
-import TopicsNavigation from './TopicsNavigation'
-import ChapterNavigation from './ChapterNavigation'
-import { useParams } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import styles from './PublicApp.module.css'
-import PublicFooter from './PublicFooter'
+import React, { useEffect, useRef, useState } from 'react';
+import './../../App.css';
+import PublicNavigation from './PublicNavigation';
+import TopicsNavigation from './TopicsNavigation';
+import ChapterNavigation from './ChapterNavigation';
+import { useParams } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from './PublicApp.module.css';
+import PublicFooter from './PublicFooter';
 
-function ContentNavigation () {
-  const { id } = useParams()
-  const hamburgerIconRef = useRef(null)
-  const menuRef = useRef(null)
+function ContentNavigation() {
+    const { topicId, lessonId } = useParams();
+    const hamburgerIconRef = useRef(null);
+    const menuRef = useRef(null);
+    const [lessonContent, setLessonContent] = useState('');
 
-  const toggleMenu = () => {
-    console.log('toggleMenu function is called')
-    console.log('menuRef.current:', menuRef.current)
-    if (menuRef.current) {
-      menuRef.current.classList.toggle(styles.menushow)
-    }
-  }
+    // Toggle menu visibility
+    const toggleMenu = () => {
+        menuRef.current?.classList.toggle(styles.menushow);
+    };
 
-  useEffect(() => {
-    const handleClickOutside = event => {
-      const isClickInsideMenu = menuRef.current.contains(event.target)
-      const isClickInsideHamburger = hamburgerIconRef.current.contains(
-        event.target
-      )
-      if (!isClickInsideMenu && !isClickInsideHamburger) {
-        menuRef.current.classList.remove('menushow')
-      }
-    }
+    // Fetch lesson content
+    const fetchLessonContent = lessonId => {
+        fetch(`http://localhost:8080/lesson/${lessonId}/content`)
+            .then(res => res.json())
+            .then(
+                result => setLessonContent(result.lessonContent),
+                error => console.error('Failed to fetch lesson content:', error)
+            );
+    };
 
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        menuRef.current.classList.remove('show')
-      }
-    }
+    // Fetch content on lessonId change
+    useEffect(() => {
+        lessonId && fetchLessonContent(lessonId);
+    }, [lessonId]);
 
-    document.addEventListener('click', handleClickOutside)
-    window.addEventListener('resize', handleResize)
+    // Handle click outside menu and window resize
+    useEffect(() => {
+        const handleClickOutside = event => {
+            const isMenuClick = menuRef.current?.contains(event.target);
+            const isHamburgerClick = hamburgerIconRef.current?.contains(event.target);
 
-    // Clean up function
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+            if (!isMenuClick && !isHamburgerClick) {
+                menuRef.current?.classList.remove(styles.menushow);
+            }
+        };
 
-  return (
-    <div>
-      <PublicNavigation />
-      <TopicsNavigation />
-      <div className={styles.content_container}>
-        <div className={styles.left_menu}>
-          <div className={`${styles.sidenav} ${styles.chapters_content}`}>
-            <div className={styles.left}>
-              <div className={styles.menu_container}>
+        const handleResize = () => {
+            if (window.innerWidth > 1000) {
+                menuRef.current?.classList.remove(styles.menushow);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    return (
+        <div>
+            <PublicNavigation />
+            <TopicsNavigation />
+            <div className={styles.content_container}>
+                <div className={styles.left_menu}>
+                    <div className={`${styles.sidenav} ${styles.chapters_content}`}>
+                        <div className={styles.left}>
+                            <div className={styles.menu_container}>
+                                <div
+                                    className={styles.hamburger_icon}
+                                    onClick={toggleMenu}
+                                    ref={hamburgerIconRef}>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div ref={menuRef} className={styles.menu}>
+                                    <ChapterNavigation
+                                        topicId={topicId}
+                                        onLessonClick={fetchLessonContent}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div
-                  className={styles.hamburger_icon}
-                  onClick={toggleMenu}
-                  ref={hamburgerIconRef}
-                >
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                    className={styles.middle_contant}
+                    dangerouslySetInnerHTML={{ __html: lessonContent }}
+                />
+                <div className={styles.right_ads}>
+                    <div className={`well`}><p>ADS</p></div>
+                    <div className={`well`}><p>ADS</p></div>
                 </div>
-                <div ref={menuRef} className={styles.menu}>
-                  <ChapterNavigation topicId={id} />
-                </div>
-              </div>
             </div>
-          </div>
+            <PublicFooter />
         </div>
-        <div className={styles.middle_contant}>
-          <h1>Welcome</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </p>
-          <hr />
-          <h3>Test</h3>
-          <p>Lorem ipsum...</p>
-        </div>
-        <div className={styles.right_ads}>
-          <div className={`well`}>
-            <p>ADS</p>
-          </div>
-          <div className={`well`}>
-            <p>ADS</p>
-          </div>
-        </div>
-      </div>
-      <PublicFooter />
-    </div>
-  )
+    );
 }
 
-export default ContentNavigation
+export default ContentNavigation;
