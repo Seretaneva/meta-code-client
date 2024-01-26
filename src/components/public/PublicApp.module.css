@@ -6,7 +6,7 @@
   align-items: center;
   background-color: #fff;
   padding: 20px;
-  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,6 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 24px;
   font-weight: bold;
   letter-spacing: 2px;
 }
@@ -27,8 +26,10 @@
   text-decoration: none;
   color: #444;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 50px;
+  font-family: fantasy;
   transition: all 0.2s ease-in-out;
+margin-top: -15px;
 }
 
 .logo__text:hover {
@@ -60,7 +61,7 @@
   text-decoration: none;
   color: #444;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 28px;
   transition: all 0.2s ease-in-out;
 }
 
@@ -79,7 +80,7 @@
     letter-spacing: 1px;
   }
   .logo__text {
-    font-size: 12px;
+    font-size: 42px;
     margin-left: 0px;
     text-decoration: none;
     font-weight: bold;
@@ -90,7 +91,7 @@
     text-decoration: none;
     color: #444;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 20px;
     transition: all 0.2s ease-in-out;
   }
 }
@@ -253,22 +254,15 @@
 
 .menu {
   width: 100%;
-  /* background-color: lightgray; */
   height: 100vh;
   text-align: center;
   overflow: auto;
   width: 100%;
-  /* position: sticky; */
-  /* position: fixed; */
   position: relative;
-
   left: 0px;
   background-color: #fff;
-  /* border: 1px solid #ccc; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* height: calc(100% - 150px); */
   height: 100%;
-  /* width: 250px; */
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc #f5f5f5;
@@ -323,7 +317,6 @@
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  /* font-size: 16px; */
   line-height: 1.5;
   color: #444;
 }
@@ -335,6 +328,8 @@
   color: #444;
   font-weight: bold;
   cursor: pointer;
+  width: 200px;
+  font-size:18px;
 }
 
 .chapter:hover {
@@ -420,33 +415,6 @@ a {
   color: white;
 }
 
-@media (max-width: 1500px) {
-  .chapter {
-    font-size: 12px;
-  }
-  .tree a {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .chapter {
-    font-size: 10px;
-  }
-  .tree a {
-    font-size: 8px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .chapter {
-    font-size: 8px;
-  }
-  .tree a {
-    font-size: 8px;
-  }
-}
-
 .links {
   color: white;
 }
@@ -499,9 +467,6 @@ footer {
 
 .middle_contant {
   width: 80%;
-  /* background-color: lightyellow; */
-  margin-top: 60px;
-  text-align: center;
 }
 
 .right_ads {
@@ -569,7 +534,6 @@ footer {
 .home_invite {
   font-size: 1.2rem;
   line-height: 1.5;
-  max-width: 800px;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -716,6 +680,7 @@ footer {
   }
 }
 
+
 /* styles for hamburger of chapters menu*/
 
 .chapter {
@@ -808,7 +773,7 @@ footer {
 }
 
 /* Media query for smaller screens */
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
   .menu {
     display: none;
     flex-direction: column;
@@ -850,32 +815,212 @@ footer {
   .menu li {
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
+    width: 100%;
   }
 }
 
 @media (max-width: 1500px) {
   .chapter {
-    font-size: 12px;
+    font-size: 15px;
   }
   .tree a {
-    font-size: 10px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 1200px) {
   .chapter {
-    font-size: 10px;
-  }
-  .tree a {
-    font-size: 8px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .chapter {
-    font-size: 15px;
+    font-size: 14px;
   }
   .tree a {
     font-size: 12px;
   }
 }
+
+@media (max-width: 1000px) {
+  .chapter {
+    font-size: 20px;
+  }
+  .tree a {
+    font-size: 15px;
+  }
+}
+
+@media (max-width:500px) {
+  .main_nav {
+    padding: 0px;
+  }
+
+  .topics_nav {
+    margin-top: -31px;
+  }
+
+  .sidenav {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width:300px) {
+  .logo__text {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: fantasy;
+    transition: all 0.2s ease-in-out;
+  margin-top: -24px;
+  }
+}
+
+
+
+/* ... Styles for social media component ... */
+
+.social_links_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.social_link {
+  margin: 0 15px;
+  transition: transform 0.2s;
+}
+
+.social_link:hover {
+  transform: scale(1.1);
+}
+
+.social_icon {
+  width: 30px;
+  height: 30px;
+}
+
+
+/* DonationPopup.module.css */
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for the overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Ensure the overlay is above other content */
+}
+
+.donationPopup {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  color: #333;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+
+/* styles for problem component */
+/* ProblemList.css */
+
+/* Container styles */
+.problemListContainer {
+  margin-top:150px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter styles */
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filterInput {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Table styles */
+.problemTable {
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+.problemTable th {
+  background-color: #f0f0f0;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 20px;
+  justify-content: center;
+}
+
+/* Modal styles */
+.modalHeader {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Button styles */
+.modalFooter .btn-secondary {
+  background-color: #ccc;
+  color: #333;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center; /* Horizontally center the pagination */
+}
+
+.sponsorsTd {
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Add this to your component or a separate CSS file */
+
+
+/* Add more styles as needed */
+
+
+
+

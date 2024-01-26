@@ -11,6 +11,7 @@ const AboutPage = () => {
 
   const handleSubmit = async event => {
     event.preventDefault()
+    console.log(localStorage.getItem('token'))
     const response = await fetch('http://localhost:8080/admin/about/update', {
       method: 'PUT',
       headers: {

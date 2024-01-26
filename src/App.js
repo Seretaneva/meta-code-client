@@ -18,6 +18,8 @@ import PublicNavigation from './components/public/PublicNavigation'
 import TopicsNavigation from './components/public/TopicsNavigation'
 import ContentNavigation from './components/public/ContentNavigation'
 import HomeComponent from './components/public/HomeComponent'
+import ProblemList from './components/public/ProblemList'; 
+import FdCInfoPage from './components/admin/FdCInfoPage';
 import './App.css'
 
 function App () {
@@ -85,6 +87,7 @@ function App () {
             element={<SponsorsPage name='sponsors' />}
           />
           <Route path='/admin/about' element={<AboutPage />} />
+          <Route path='/admin/FdCInfoPage' element={<FdCInfoPage />} />
           <Route path='/admin' element={<AdminMainPage />} />
           <Route path='/admin/login' element={<LoginPage />} />
           <Route
@@ -93,6 +96,7 @@ function App () {
           />
           <Route path='/topics/:topicId' element={<ContentNavigation />} />
           <Route path='/' element={<HomeComponent />} />
+          <Route path="/problems" element={<ProblemList />} />
         </Routes>
         {/* <PublicFooter /> */}
       </div>

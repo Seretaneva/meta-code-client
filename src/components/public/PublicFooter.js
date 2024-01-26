@@ -1,50 +1,62 @@
 import './../../App.css'
+import React, { useState, useEffect } from 'react'
+import DonationPopup from './DonationPopup'
 
 function PublicFooter () {
+  const [isDonationPopupOpen, setDonationPopupOpen] = useState(false)
+  const [infoHome, setInfoHomeInfo] = useState('')
+
+  const openDonationPopup = () => {
+    setDonationPopupOpen(true)
+  }
+
+  const closeDonationPopup = () => {
+    setDonationPopupOpen(false)
+  }
+
+  useEffect(() => {
+    fetch('http://localhost:8080/fabrica-de-coduri-info/1', { mode: 'cors' })
+      .then(res => res.json())
+      .then(
+        result => {
+          setInfoHomeInfo(result)
+        },
+        error => {
+          console.log('Error fetching infoHomeInfo:', error)
+        }
+      )
+  }, [])
+
   return (
     <div>
       <footer className='footer'>
         <div className='footer_container'>
           <div className='row'>
             <div className='col-md-4'>
-              <h3>About Meta Code</h3>
-              <p>
-                Meta Code is an online platform that provides programming
-                lessons to beginners and advanced learners alike. Our mission is
-                to help people learn to code and advance their careers in tech.
-              </p>
+              <h3>Despre FdC</h3>
+              <p>{infoHome.aboutFooterContent}</p>
             </div>
             <div className='col-md-4'>
-              <h3>Donate</h3>
-              <p>
-                If you find our lessons helpful and want to support our work,
-                please consider making a donation. Your contribution helps us
-                create more high-quality content for our community.
-              </p>
-              <button className='btn btn-primary'>Donate Now</button>
+              <h3>Donează</h3>
+              <p>{infoHome.donateFooterContent}</p>
+              <button className='btn btn-primary' onClick={openDonationPopup}>
+                Donează acum!
+              </button>
             </div>
             <div className='col-md-4'>
-              <h3>Contact Us</h3>
-              <p>
-                If you have any questions or feedback, please don't hesitate to
-                reach out to us via email. We'd love to hear from you!
-              </p>
-              <a
-                href='mailto:metacodetyping@gmail.com'
-                className='btn btn-primary'
-              >
-                Email Us
-              </a>
+              <h3>Contact</h3>
+              <p>{infoHome.contactFooterContent}</p>
             </div>
           </div>
         </div>
         <hr />
         <div className='row justify-content-center'>
           <div className='col-md-12 text-center'>
-            <p>This portal was created by Lazari Peter</p>
+            <p>{infoHome.ownerInfo}</p>
           </div>
         </div>
       </footer>
+      {isDonationPopupOpen && <DonationPopup onClose={closeDonationPopup} />}
     </div>
   )
 }

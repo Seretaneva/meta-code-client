@@ -1,28 +1,48 @@
 import styles from './PublicApp.module.css'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import DonationPopup from './DonationPopup'
 
 function PublicNavigation () {
   const navigate = useNavigate()
+  const [isDonationPopupOpen, setDonationPopupOpen] = useState(false)
+
+  const openDonationPopup = () => {
+    setDonationPopupOpen(true)
+  }
+
+  const closeDonationPopup = () => {
+    setDonationPopupOpen(false)
+  }
+
   return (
     <div>
       <div className={styles.main_nav}>
         <div className={styles.logo}>
-          <a className={styles.logo__text} href='/'>
-            FdC
-          </a>
+          <Link to='/' className={styles.logo__text}>
+          <img
+          src='../../../images/Logo_color.png'
+          alt='YouTube'
+          className={styles.social_icon}
+        />
+          </Link>
         </div>
         <ul className={styles.nav_links}>
           <li>
-            <a href='www.google.com'>Acasa</a>
+            <Link to='/'>Acasa</Link>
           </li>
           <li>
-            <a href='www.google.com'>probleme</a>
+            <Link to='/problems'>probleme</Link>
           </li>
           <li>
-            <a href='www.google.com'>doneaza</a>
+            <a href='#' onClick={openDonationPopup}>
+              doneaza
+            </a>
           </li>
         </ul>
       </div>
+      {isDonationPopupOpen && <DonationPopup onClose={closeDonationPopup} />}
     </div>
   )
 }

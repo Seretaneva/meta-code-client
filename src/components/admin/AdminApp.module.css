@@ -1,0 +1,11 @@
+/* AdminApp.module.css */
+.tableCell {
+    max-height: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .tableCellEllipsis {
+    text-overflow: ellipsis;
+  }
+  

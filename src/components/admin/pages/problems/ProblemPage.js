@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import styles from '../../AdminApp.module.css'
 import {
   Table,
   Form,
@@ -7,26 +8,28 @@ import {
   Container,
   Row,
   Col
-} from 'react-bootstrap';
-import axios from 'axios';
+} from 'react-bootstrap'
+import axios from 'axios'
 
-function ProblemPage() {
+function ProblemPage () {
   const [problems, setProblems] = useState([]);
-  const [problemId, setProblemId] = useState(null);
-  const [problemName, setProblemName] = useState('');
-  const [problemContent, setProblemContent] = useState('');
-  const [problemSolution, setProblemSolution] = useState('');
-  const [problemComplexity, setProblemComplexity] = useState('');
-  const [problemTheme, setProblemTheme] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [setShowLoading] = useState(false);
-  const [setShowAlert] = useState(false);
-  const [setAlertVariant] = useState('');
-  const [setAlertMessage] = useState('');
+  const [filteredProblems, setFilteredProblems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [problemId, setProblemId] = useState(null)
+  const [problemName, setProblemName] = useState('')
+  const [problemContent, setProblemContent] = useState('')
+  const [problemSolution, setProblemSolution] = useState('')
+  const [problemComplexity, setProblemComplexity] = useState('')
+  const [problemTheme, setProblemTheme] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [setShowLoading] = useState(false)
+  const [setShowAlert] = useState(false)
+  const [setAlertVariant] = useState('')
+  const [setAlertMessage] = useState('')
 
   useEffect(() => {
-    fetchProblems();
-  }, []);
+    fetchProblems()
+  }, [])
 
   const fetchProblems = async () => {
     try {
@@ -35,32 +38,40 @@ function ProblemPage() {
         'http://localhost:8080/admin/problem/all',
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       setProblems(response.data);
+      setFilteredProblems(response.data); // Initialize filteredProblems with all problems
     } catch (error) {
-      setShowAlert(true);
-      setAlertVariant('danger');
-      setAlertMessage('Failed to retrieve problems.');
+      // Handle error
     }
   };
 
-  const handleCloseModal = () => {
-    setProblemId(null);
-    setProblemName('');
-    setProblemContent('');
-    setProblemSolution('');
-    setProblemComplexity('');
-    setProblemTheme('');
-    setShowModal(false);
+  const handleSearch = () => {
+    console.log("test")
+    // Filter problems based on the search term
+    const filtered = problems.filter((problem) =>
+      problem.problemName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProblems(filtered);
   };
+
+  const handleCloseModal = () => {
+    setProblemId(null)
+    setProblemName('')
+    setProblemContent('')
+    setProblemSolution('')
+    setProblemComplexity('')
+    setProblemTheme('')
+    setShowModal(false)
+  }
 
   const handleCreateProblem = async () => {
     // setShowLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')
       const response = await axios.post(
         'http://localhost:8080/admin/problem/create',
         {
@@ -75,25 +86,25 @@ function ProblemPage() {
             Authorization: `Bearer ${token}`
           }
         }
-      );
-      setProblems([...problems, response.data]);
-      setShowModal(false);
-      setShowAlert(true);
-      setAlertVariant('success');
-      setAlertMessage('Problem created successfully.');
+      )
+      setProblems([...problems, response.data])
+      setShowModal(false)
+      setShowAlert(true)
+      setAlertVariant('success')
+      setAlertMessage('Problem created successfully.')
     } catch (error) {
-      setShowAlert(true);
-      setAlertVariant('danger');
-      setAlertMessage('Failed to create problem.');
+      setShowAlert(true)
+      setAlertVariant('danger')
+      setAlertMessage('Failed to create problem.')
     } finally {
       // setShowLoading(false);
     }
-  };
+  }
 
   const handleUpdateProblem = async () => {
     // setShowLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')
       const response = await axios.put(
         `http://localhost:8080/admin/problem/edit/${problemId}`,
         {
@@ -108,24 +119,23 @@ function ProblemPage() {
             Authorization: `Bearer ${token}`
           }
         }
-      );
+      )
       const updatedProblems = problems.map(problem =>
         problem.id === problemId ? response.data : problem
-      );
-      setProblems(updatedProblems);
-      setShowModal(false);
-      setShowAlert(true);
-      setAlertVariant('success');
-      setAlertMessage('Problem updated successfully.');
+      )
+      setProblems(updatedProblems)
+      setShowModal(false)
+      setShowAlert(true)
+      setAlertVariant('success')
+      setAlertMessage('Problem updated successfully.')
     } catch (error) {
-      setShowAlert(true);
-      setAlertVariant('danger');
-      setAlertMessage('Failed to update problem.');
+      setShowAlert(true)
+      setAlertVariant('danger')
+      setAlertMessage('Failed to update problem.')
     } finally {
       // setShowLoading(false);
     }
-  };
-
+  }
 
   const handleEditProblem = problem => {
     setProblemId(problem.problemId)
@@ -140,9 +150,10 @@ function ProblemPage() {
   const handleDeleteProblem = async problemId => {
     // setShowLoading(true)
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')
       await axios.delete(
-        `http://localhost:8080/admin/problem/delete/${problemId}`,{
+        `http://localhost:8080/admin/problem/delete/${problemId}`,
+        {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -169,6 +180,17 @@ function ProblemPage() {
       <Row>
         <Col>
           <h1 className='mt-3'>Problems</h1>
+          <Form.Group controlId='formSearch'>
+            <Form.Control
+              type='text'
+              placeholder='Search by name'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button variant='primary' onClick={handleSearch}>
+              Search
+            </Button>
+          </Form.Group>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -181,13 +203,33 @@ function ProblemPage() {
               </tr>
             </thead>
             <tbody>
-              {problems.map(problem => (
+            {filteredProblems.map((problem) => (
                 <tr key={problem.problemId}>
-                  <td>{problem.problemName}</td>
-                  <td>{problem.problemContent}</td>
-                  <td>{problem.problemSolution}</td>
-                  <td>{problem.problemComplexity}</td>
-                  <td>{problem.problemTheme}</td>
+                  <td className={styles.tableCell}>
+                    {problem.problemName.length > 15
+                      ? `${problem.problemName.substring(0, 15)}...`
+                      : problem.problemName}
+                  </td>
+                  <td className={styles.tableCell}>
+                    {problem.problemContent.length > 15
+                      ? `${problem.problemContent.substring(0, 15)}...`
+                      : problem.problemContent}
+                  </td>
+                  <td className={styles.tableCell}>
+                    {problem.problemSolution.length > 15
+                      ? `${problem.problemSolution.substring(0, 15)}...`
+                      : problem.problemSolution}
+                  </td>
+                  <td className={styles.tableCell}>
+                    {problem.problemComplexity.length > 15
+                      ? `${problem.problemComplexity.substring(0, 15)}...`
+                      : problem.problemComplexity}
+                  </td>
+                  <td className={styles.tableCell}>
+                    {problem.problemTheme.length > 15
+                      ? `${problem.problemTheme.substring(0, 15)}...`
+                      : problem.problemTheme}
+                  </td>
                   <td>
                     <Button
                       variant='primary'

@@ -30,6 +30,9 @@ function AdminNavigation() {
           <Nav.Link eventKey='/admin/about' href='/admin/about'>
             about
           </Nav.Link>
+          <Nav.Link eventKey='/admin/FdCInfo' href='/admin/FdCInfoPage'>
+            FdC info
+          </Nav.Link>
           <Nav.Link eventKey='/admin/login' href='/admin/login'>
             login
           </Nav.Link>
