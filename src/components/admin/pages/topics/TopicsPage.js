@@ -17,10 +17,12 @@ function TopicsPage () {
               <TopicsTable />
             </Col>
             <Col xs={{ order: 'last' }}>
-              <CreateTopic />
+             
             </Col>
           </Row>
+          <CreateTopic />
         </Container>
+        <h1>asdasd</h1>
       </div>
     </div>
   )

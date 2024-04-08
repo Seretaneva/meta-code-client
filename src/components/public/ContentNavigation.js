@@ -13,7 +13,8 @@ function ContentNavigation () {
   const { topicId, lessonId } = useParams()
   const hamburgerIconRef = useRef(null)
   const menuRef = useRef(null)
-  const [lessonContent, setLessonContent] = useState('')
+  const [lessonContent, setLessonContent] = useState('');
+  const [images, setImages] = useState({}); // 
 
   const toggleMenu = () => {
     menuRef.current?.classList.toggle(styles.menushow)
@@ -23,14 +24,40 @@ function ContentNavigation () {
     fetch(`http://localhost:8080/lesson/${lessonId}/content`)
       .then(res => res.json())
       .then(
-        result => setLessonContent(result.lessonContent),
+        result => {
+          setLessonContent(result.lessonContent);
+          // Creăm un map pentru a asocia fiecare nume de fișier cu datele sale base64, curățând prefixul dacă este necesar
+          const imagesMap = result.images.reduce((acc, image) => {
+            // Curățăm datele imaginii pentru a elimina un prefix duplicat
+            const cleanBase64Data = image.base64Data.replace(/^data:image\/png;base64,/, '');
+            acc[image.fileName] = `data:image/png;base64,${cleanBase64Data}`;
+            return acc;
+          }, {});
+          setImages(imagesMap);
+        },
         error => console.error('Failed to fetch lesson content:', error)
-      )
-  }
+      );
+  };
 
   useEffect(() => {
-    lessonId && fetchLessonContent(lessonId)
-  }, [lessonId])
+    if (lessonId) fetchLessonContent(lessonId);
+  }, [lessonId]);
+
+  const renderContent = () => {
+    if (!lessonContent) return;
+
+    const htmlContent = new DOMParser().parseFromString(lessonContent, 'text/html');
+
+    htmlContent.querySelectorAll('img').forEach(img => {
+      const imageName = img.getAttribute('src').split('/').pop(); // Presupunem că src-ul e de forma "images/numeImagine.png"
+      if (images[imageName]) {
+        img.src = images[imageName];
+      }
+    });
+
+    return { __html: htmlContent.documentElement.innerHTML };
+  };
+
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -87,7 +114,7 @@ function ContentNavigation () {
         </div>
         <div
           className={styles.middle_contant}
-          dangerouslySetInnerHTML={{ __html: lessonContent }}
+          dangerouslySetInnerHTML={renderContent()}
         />
         <div className={styles.right_ads}>
           <div style={{ height: '500px', overflowY: 'scroll' }}>

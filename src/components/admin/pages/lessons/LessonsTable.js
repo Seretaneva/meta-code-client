@@ -1,44 +1,116 @@
-import Table from 'react-bootstrap/Table'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { FaRegTrashAlt, FaArrowUp } from 'react-icons/fa'
-import EditLesson from './EditLesson'
-import CreateLesson from './CreateLesson'
-import Modal from 'react-bootstrap/Modal'
+import Table from 'react-bootstrap/Table';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FaRegTrashAlt, FaArrowUp } from 'react-icons/fa';
+import EditLesson from './EditLesson';
+import CreateLesson from './CreateLesson';
+import Modal from 'react-bootstrap/Modal';
 
-function LessonsTable () {
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [lessons, setItems] = useState([])
-  const { chapterId } = useParams()
-  const [lessonContent, setLessonContent] = useState('')
-  const [lessonId, setLessonId] = useState(null)
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+function LessonsTable() {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [lessons, setItems] = useState([]);
+  const { chapterId } = useParams();
+  const [lessonContent, setLessonContent] = useState('');
+  const [lessonId, setLessonId] = useState(null);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
   const handleShow = id => {
-    setLessonId(id)
-    setShow(true)
-  }
+    setLessonId(id);
+    setShow(true);
+  };
 
-  const handleSubmit = async e => {
-    e.preventDefault()
-    await fetch(`http://localhost:8080/admin/lesson/${lessonId}/insert`, {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'text/plain',
-        Authorization: `Bearer ${localStorage.getItem('token')} `,
-        'Access-Control-Allow-Origin': '*'
-      },
-      mode: 'cors',
-      body: lessonContent
-    })
-    handleClose()
-  }
+  const imageToBase64 = (image) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(image);
+    });
+  };
 
-  async function handleDelete (id) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const imagesData = await Promise.all(selectedImages.map(async (image) => {
+      const base64Image = await imageToBase64(image);
+      return {
+        fileName: image.name,
+        base64Data: base64Image
+      };
+    }));
+  
+    const dataToSend = {
+      lessonContent: lessonContent,
+      images: imagesData
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:8080/admin/lesson/${lessonId}/insert`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json', // Important pentru a specifica tipul de conținut
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(dataToSend),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to upload lesson content and images.');
+      }
+  
+      handleClose();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+  
+
+  const base64ToBlob = (base64) => {
+    // Split the base64 string to get metadata and data
+    const [metadata, data] = base64.split(';base64,');
+    // Extract the content type from metadata
+    const contentType = metadata.split(':')[1];
+    // Convert base64 string to ArrayBuffer
+    const arrayBuffer = Uint8Array.from(atob(data), c => c.charCodeAt(0)).buffer;
+    // Create Blob object
+    return new Blob([arrayBuffer], { type: contentType });
+  };
+  
+
+
+  const handleDeleteImage = (index) => {
+    // Remove the selected image at the given index
+    const newSelectedImages = [...selectedImages];
+    newSelectedImages.splice(index, 1);
+    setSelectedImages(newSelectedImages);
+
+    // Remove the preview image at the given index
+    const newPreviewImages = [...previewImages];
+    newPreviewImages.splice(index, 1);
+    setPreviewImages(newPreviewImages);
+  };
+
+  const handleImageChange = (e) => {
+    // Get the selected files
+    const files = Array.from(e.target.files);
+
+    // Update selected images state
+    setSelectedImages([...selectedImages, ...files]);
+
+    // Update preview images state
+    const imagePreviews = files.map((file) => URL.createObjectURL(file));
+    setPreviewImages([...previewImages, ...imagePreviews]);
+  };
+
+  async function handleDelete(id) {
     await fetch(`http://localhost:8080/admin/lesson/delete/${id}`, {
       method: 'DELETE',
       headers: {
@@ -133,21 +205,35 @@ function LessonsTable () {
         </Table>
         {/* ... */}
         <>
-          <Modal centered show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Insert Content</Modal.Title>
+              <Modal.Title>Add Lesson</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <form onSubmit={handleSubmit}>
-                <div className='form-group'>
+                <div className="form-group">
+                  <label>Lesson Content</label>
                   <textarea
-                    className='form-control'
+                    className="form-control"
                     value={lessonContent}
-                    onChange={e => setLessonContent(e.target.value)}
+                    onChange={(e) => setLessonContent(e.target.value)}
                   />
                 </div>
-                <br></br>
-                <Button variant='primary' type='submit'>
+                <div className="form-group">
+                  <label>Upload Images</label>
+                  <input type="file" multiple onChange={handleImageChange} />
+                </div>
+                <div className="preview-images">
+                  {previewImages.map((preview, index) => (
+                    <div key={index} className="preview-image">
+                      <img src={preview} alt={`Preview ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                      <button type="button" onClick={() => handleDeleteImage(index)}>
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="primary" type="submit">
                   Submit
                 </Button>
               </form>

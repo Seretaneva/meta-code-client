@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from 'react'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import EditTopic from './EditTopic'
+import CreateTopic from './CreateTopic'
 
 function TopicsTable (props) {
   console.log(localStorage.getItem('token'))
@@ -64,7 +65,7 @@ function TopicsTable (props) {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th rowSpan={2}>ID</th>
+              <th rowSpan={2}>IDddd</th>
               <th rowSpan={2}>name</th>
               <th colSpan={2}> Actions</th>
             </tr>
@@ -93,6 +94,7 @@ function TopicsTable (props) {
             ))}
           </tbody>
         </Table>
+        <CreateTopic />
       </div>
     )
   }
