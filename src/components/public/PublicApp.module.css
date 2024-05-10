@@ -42,33 +42,6 @@
   color: #2BAF49;
 }
 
-/* @media screen and (max-width: 1000px) {
-  .main_nav {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-  .logo__text {
-    font-size: 42px;
-    margin-left: 0px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .nav_links a {
-    text-decoration: none;
-    color: #444;
-    font-weight: bold;
-    font-size: 20px;
-    transition: all 0.2s ease-in-out;
-  }
-} */
-
 .topics_nav {
   position: fixed;
   margin-top: -44px;
@@ -135,68 +108,7 @@
 }
 
 /* Media queries */
-@media screen and (max-width: 767px) {
-  .topics_nav_toggle {
-    position: fixed;
-    margin-left: 95%;
-    margin-bottom: 10px;
-    display: block;
-  }
 
-  .topics_nav {
-    width: 100%;
-    z-index: 999;
-    background-color: rgb(7, 7, 7);
-    margin-top: -15px;
-    /* display: flex; */
-    position: fixed;
-    margin-top:40px;
-    height: 32px;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .topics_navbar_menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    max-height: 400px;
-    overflow: auto; /* add a scrollbar if the content overflows the div */
-  }
-
-  .topics_navbar_menu ul {
-    flex-direction: column;
-  }
-
-  .topics_navbar_menu li {
-    text-align: center;
-    width: 100%;
-    color: #e0dfdf;
-    margin-left: 0;
-  }
-
-  .topics_navbar_menu:nth-child(odd) {
-    background-color: #f2f2f2; /* set the background color for odd items */
-  }
-
-  .topics_navbar_menu:nth-child(even) {
-    background-color: #ddd; /* set the background color for even items */
-  }
-
-  .topics_navbar_menu a {
-    color: #333;
-  }
-
-  .topics_navbar_menu.show {
-    display: block;
-    position: relative;
-    z-index: 100;
-  }
-}
 
 .topics_navbar_menu li :hover {
   background-color: #2BAF49;
@@ -208,12 +120,7 @@
   margin-top: 140px;
 }
 
-@media screen and (max-width: 767px) {
-  .main_container {
-    position: absolute;
-    margin-top: 100px;
-  }
-}
+
 
 /* styles for chapters menu */
 
@@ -421,19 +328,6 @@ footer {
   padding: 15px;
 }
 
-/* @media screen and (max-width: 1000px) {
-  .sidenav {
-    height: 34px;
-    position: fixed;
-    width: 100%;
-    z-index: 222;
-    background-color: #8b8b8b;
-    margin-top:50px;
-  }
-  .row.content {
-    height: auto;
-  }
-} */
 
 .content_container {
   /* position: absolute; */
@@ -465,41 +359,9 @@ footer {
   overflow-y: auto; /* */
 }
 
-@media only screen and (max-width: 1000px) {
-  .content_container {
-    margin-top: 109px;
-    flex-direction: column;
-  }
 
-  .left_menu,
-  .middle_contant,
-  .right_ads {
-    width: 100%;
-  }
 
-}
 
-@media only screen and (max-width: 767px) {
-  .content_container {
-    margin-top: 80px;
-    flex-direction: column;
-  }
-
-  .left_menu,
-  .middle_contant,
-  .right_ads {
-    width: 100%;
-  }
-
-  .sidenav {
-    height: 34px;
-    margin-top: 19px;
-    position: fixed;
-    width: 100%;
-    z-index: 222;
-    background-color: #ebe9e9;
-  }
-}
 
 .home_container {
   margin-top: 100px;
@@ -581,11 +443,6 @@ footer {
   font-size: 2.9rem;
 }
 
-@media (max-width: 768px) {
-  .topic_button {
-    width: 90%;
-  }
-}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -656,15 +513,6 @@ footer {
   /* Asigură-te că tranziția de fundal este lină și naturală */
   transition: transform 0.3s ease-in-out, background 0.5s ease; /* Ajustează timpul de tranziție pentru efectul dorit */
 }
-
-
-@media screen and (max-width: 768px) {
-  .topic_button {
-    width: 80%;
-    margin-bottom: 20px;
-  }
-}
-
 
 /* styles for hamburger of chapters menu*/
 
@@ -757,125 +605,6 @@ footer {
   margin: 5px;
   background-color: black;
 }
-
-/* Media query for smaller screens */
-@media (max-width: 1300px) {
-
-  .left_menu {
-    height:100px;
-    width: 100%;
-    position: absolute;
-  }
-
-  .menu_container {
-    width: 100%;
-    /* height: 50px; */
-    align-items: center;
-    position: absolute;
-  }
-
-
-  .menu {
-    position:absolute;
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: 500px;
-    background-color: #f5f5f5;
-    z-index: 1;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .hamburger_icon {
-    display: block;
-    cursor: pointer;
-  }
-
-  .menushow {
-    margin-top: -20px;
-    display: flex ;
-    width: 100%;
-  }
-
-  .hamburger-icon {
-    display: block;
-    cursor: pointer;
-  }
-
-  .chapter {
-    font-weight: normal;
-    padding-bottom: 5px;
-  }
-
-  .lesson {
-    margin-left: 0;
-  }
-
-  .menu li {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1500px) {
-  .chapter {
-    font-size: 15px;
-  }
-  .tree a {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .chapter {
-    font-size: 14px;
-  }
-  .tree a {
-    font-size: 12px;
-  }
-}
-
-/* @media (max-width: 1000px) {
-  .chapter {
-    font-size: 20px;
-  }
-  .tree a {
-    font-size: 15px;
-  }
-} */
-
-@media (max-width:500px) {
-  .main_nav {
-    padding: 0px;
-  }
-
-  .topics_nav {
-    margin-top: -31px;
-  }
-
-  .sidenav {
-    margin-top: 2px;
-  }
-}
-
-@media (max-width:300px) {
-  .logo__text {
-    text-decoration: none;
-    color: #444;
-    font-weight: bold;
-    font-size: 25px;
-    font-family: fantasy;
-    transition: all 0.2s ease-in-out;
-  margin-top: -24px;
-  }
-}
-
-
 
 /* ... Styles for social media component ... */
 
@@ -1038,5 +767,226 @@ p {
   background-color: #2BAF49; /* Exemplu de culoare de fundal */
 }
 
+@media (max-width: 1500px) {
+  .chapter {
+    font-size: 15px;
+  }
+  .tree a {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1300px) {
+
+  .left_menu {
+    height:100px;
+    width: 100%;
+    position: absolute;
+  }
+
+  .menu_container {
+    width: 100%;
+    /* height: 50px; */
+    align-items: center;
+    position: absolute;
+  }
+
+  .menu {
+    position:absolute;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    background-color: #f5f5f5;
+    z-index: 1;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .hamburger_icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .menushow {
+    margin-top: -20px;
+    display: flex ;
+    width: 100%;
+  }
+
+  .hamburger-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .chapter {
+    font-weight: normal;
+    padding-bottom: 5px;
+  }
+
+  .lesson {
+    margin-left: 0;
+  }
+
+  .menu li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .chapter {
+    font-size: 14px;
+  }
+  .tree a {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .content_container {
+    margin-top: 109px;
+    flex-direction: column;
+  }
+
+  .left_menu,
+  .middle_contant,
+  .right_ads {
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .topic_button {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .topic_button {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .topics_nav_toggle {
+    position: fixed;
+    margin-left: 95%;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .topics_nav {
+    width: 100%;
+    z-index: 999;
+    background-color: rgb(7, 7, 7);
+    margin-top: -15px;
+    /* display: flex; */
+    position: fixed;
+    margin-top:40px;
+    height: 32px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .topics_navbar_menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    overflow: auto; /* add a scrollbar if the content overflows the div */
+  }
+
+  .topics_navbar_menu ul {
+    flex-direction: column;
+  }
+
+  .topics_navbar_menu li {
+    text-align: center;
+    width: 100%;
+    color: #e0dfdf;
+    margin-left: 0;
+  }
+
+  .topics_navbar_menu:nth-child(odd) {
+    background-color: #f2f2f2; /* set the background color for odd items */
+  }
+
+  .topics_navbar_menu:nth-child(even) {
+    background-color: #ddd; /* set the background color for even items */
+  }
+
+  .topics_navbar_menu a {
+    color: #333;
+  }
+
+  .topics_navbar_menu.show {
+    display: block;
+    position: relative;
+    z-index: 100;
+  }
+
+  .main_container {
+    position: absolute;
+    margin-top: 100px;
+  }
+}
 
 
+
+
+@media only screen and (max-width: 767px) {
+  .content_container {
+    margin-top: 80px;
+    flex-direction: column;
+  }
+
+  .left_menu,
+  .middle_contant,
+  .right_ads {
+    width: 100%;
+  }
+
+  .sidenav {
+    height: 34px;
+    margin-top: 19px;
+    position: fixed;
+    width: 100%;
+    z-index: 222;
+    background-color: #ebe9e9;
+  }
+}
+
+@media (max-width:500px) {
+  .main_nav {
+    padding: 0px;
+  }
+
+  .topics_nav {
+    margin-top: -31px;
+  }
+
+  .sidenav {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width:300px) {
+  .logo__text {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: fantasy;
+    transition: all 0.2s ease-in-out;
+  margin-top: -24px;
+  }
+}
