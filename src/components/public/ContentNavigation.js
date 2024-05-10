@@ -85,7 +85,7 @@ function ContentNavigation () {
   }, [])
 
   return (
-    <div>
+    <div className={styles.appContainer}>
       <PublicNavigation />
       <TopicsNavigation />
       <div className={styles.content_container}>
@@ -226,6 +226,7 @@ function ContentNavigation () {
             </Table>
           </div>
         </div>
+        
       </div>
       <PublicFooter />
     </div>

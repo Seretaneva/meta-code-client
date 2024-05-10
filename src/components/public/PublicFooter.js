@@ -1,6 +1,7 @@
 import './../../App.css'
 import React, { useState, useEffect } from 'react'
 import DonationPopup from './DonationPopup'
+import styles from './PublicApp.module.css'
 
 function PublicFooter () {
   const [isDonationPopupOpen, setDonationPopupOpen] = useState(false)
@@ -13,6 +14,7 @@ function PublicFooter () {
   const closeDonationPopup = () => {
     setDonationPopupOpen(false)
   }
+
 
   useEffect(() => {
     fetch('http://localhost:8080/fabrica-de-coduri-info/1', { mode: 'cors' })
@@ -28,18 +30,18 @@ function PublicFooter () {
   }, [])
 
   return (
-    <div>
+    <div className={styles.footerContainer}>
       <footer className='footer'>
         <div className='footer_container'>
           <div className='row'>
             <div className='col-md-4'>
               <h3>Despre FdC</h3>
-              <p>{infoHome.aboutFooterContent}</p>
+              <p>{infoHome.aboutFooter}</p>
             </div>
             <div className='col-md-4'>
               <h3>Donează</h3>
               <p>{infoHome.donateFooterContent}</p>
-              <button className='btn btn-primary' onClick={openDonationPopup}>
+              <button className='btn btn-success' onClick={openDonationPopup}>
                 Donează acum!
               </button>
             </div>

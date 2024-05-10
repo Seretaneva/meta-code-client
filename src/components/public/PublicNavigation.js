@@ -23,8 +23,8 @@ function PublicNavigation () {
           <Link to='/' className={styles.logo__text}>
           <img
           src='../../../images/Logo_color.png'
-          alt='YouTube'
-          className={styles.social_icon}
+          alt='FdC'
+          className={styles.logo}
         />
           </Link>
         </div>

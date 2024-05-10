@@ -16,34 +16,7 @@
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.logo__text {
-  text-decoration: none;
-  color: #444;
-  font-weight: bold;
-  font-size: 50px;
-  font-family: fantasy;
-  transition: all 0.2s ease-in-out;
-margin-top: -15px;
-}
-
-.logo__text:hover {
-  text-decoration: none;
-  color: #0070c9;
-}
-
-.logo__text:before {
-  content: '';
-  display: inline-block;
-  height: 20px;
-  background-size: cover;
-  text-decoration: none;
-  margin-right: 5px;
+  width: 150px;
 }
 
 .nav_links {
@@ -66,10 +39,10 @@ margin-top: -15px;
 }
 
 .nav_links a:hover {
-  color: #0070c9;
+  color: #2BAF49;
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   .main_nav {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -94,7 +67,7 @@ margin-top: -15px;
     font-size: 20px;
     transition: all 0.2s ease-in-out;
   }
-}
+} */
 
 .topics_nav {
   position: fixed;
@@ -130,6 +103,9 @@ margin-top: -15px;
 }
 
 .topics_navbar_menu {
+  position: absolute;
+  margin-top:50px;
+  width: 100%;
   background-color: #333;
   display: flex;
   justify-content: center;
@@ -150,15 +126,12 @@ margin-top: -15px;
   background: transparent;
 }
 
-.topics_navbar_menu li {
-  margin-left: 15px;
-}
-
 .topics_navbar_menu a {
   display: block;
   padding: 10px 15px;
   text-decoration: none;
   color: #e0dfdf;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 
 /* Media queries */
@@ -177,6 +150,7 @@ margin-top: -15px;
     margin-top: -15px;
     /* display: flex; */
     position: fixed;
+    margin-top:40px;
     height: 32px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -225,7 +199,7 @@ margin-top: -15px;
 }
 
 .topics_navbar_menu li :hover {
-  background-color: #555;
+  background-color: #2BAF49;
 }
 
 /* Styles for content */
@@ -258,14 +232,16 @@ margin-top: -15px;
   text-align: center;
   overflow: auto;
   width: 100%;
-  position: relative;
+  position: sticky;
   left: 0px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 100%;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  height: 60%;
+  margin-top: -380px;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc #f5f5f5;
+  z-index: -2;
 }
 
 .menu::-webkit-scrollbar {
@@ -289,6 +265,9 @@ margin-top: -15px;
   /* height: 120%; */
   display: flex;
   align-items: center;
+  position: fixed;
+  /* height: 100%; */
+  margin-top:50px;
 }
 
 .hamburger_icon {
@@ -304,21 +283,25 @@ margin-top: -15px;
 }
 
 .lessons_menu::-webkit-scrollbar-track {
+  
   background-color: #f5f5f5;
 }
 
 .lessons_menu::-webkit-scrollbar-thumb {
+
   background-color: #ccc;
   border-radius: 10px;
 }
 
 .tree {
+
   list-style: none;
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   line-height: 1.5;
   color: #444;
+
 }
 
 .chapter {
@@ -388,6 +371,7 @@ margin-top: -15px;
 }
 
 .lessons_menu {
+  position:static;
   width: 100%;
   list-style-type: none;
   margin: 0;
@@ -437,18 +421,19 @@ footer {
   padding: 15px;
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   .sidenav {
     height: 34px;
     position: fixed;
     width: 100%;
     z-index: 222;
-    background-color: #ebe9e9;
+    background-color: #8b8b8b;
+    margin-top:50px;
   }
   .row.content {
     height: auto;
   }
-}
+} */
 
 .content_container {
   /* position: absolute; */
@@ -459,21 +444,25 @@ footer {
 }
 
 .left_menu {
-  width: 10%;
+  width: 210px;
   /* background-color: lightgray; */
-
+  background: #f1f1f1;
   text-align: center;
 }
 
 .middle_contant {
-  width: 80%;
+  margin-top:50px;
+  width: 50%;
 }
 
 .right_ads {
-  width: 10%;
-  /* background-color: lightgreen; */
-
-  text-align: center;
+  margin-top:50px;
+  /* position: fixed;
+  top: 0; /* Adjust if you have a header */
+  right: 0; /* Aligns the div to the right edge of the viewport */
+  width: 300px; /* Set a specific width */
+  height: 100vh; /* Optional: Adjust based on your design */
+  overflow-y: auto; /* */
 }
 
 @media only screen and (max-width: 1000px) {
@@ -487,6 +476,7 @@ footer {
   .right_ads {
     width: 100%;
   }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -524,24 +514,33 @@ footer {
 }
 
 .home_title {
-  font-size: 3rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  font-size: 2.5rem; /* Mărește mărimea titlului */
+  margin-bottom: 0.5em; /* Adaugă un spațiu subtitlu */
+  color: #383E42; /* Adaugă o culoare specifică pentru titlu */
+  font-family: 'Arial', sans-serif; /* Schimbă familia de fonturi */
 }
 
-.home_intro,
-.home_info,
-.home_invite {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  text-align: center;
-  margin-bottom: 2rem;
+.home_intro {
+  font-size: 1.5rem; /* Ajustează mărimea textului pentru intro */
+  line-height: 2.5; /* Îmbunătățește lizibilitatea prin ajustarea înălțimii liniei */
+  color: #555; /* O culoare mai moale pentru textul introductiv */
+  font-family: 'Georgia', serif; /* Schimbă familia de fonturi pentru un aspect mai elegant */
+  animation: blinkCursor 0.75s step-end infinite; /* Adaugă animație de cursor, dacă dorești */
+
 }
 
 .home_subtitle {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  font-size: 2rem; /* Ajustează mărimea fontului pentru subtitlu */
+  color: #333; /* Asigură-te că subtitlul este vizibil */
+  margin-top: 2em; /* Adaugă spațiu deasupra subtitlului pentru separare */
+  font-family: 'Helvetica', sans-serif; /* Schimbă familia de fonturi */
+}
+
+.home_info, .home_invite {
+  font-size: 1rem; /* Mărimea standard pentru textul informativ */
+  margin-top: 1em; /* Spațiu deasupra pentru separare */
+  color: #666; /* O culoare discretă pentru informații */
+  font-family: 'Courier New', monospace; /* O familie de fonturi monospace pentru un efect tipografic */
 }
 
 .topics_container {
@@ -568,15 +567,6 @@ footer {
   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   transition: transform 0.5s, font-size 0.5s;
   cursor: pointer;
-}
-
-.topic_button:hover,
-.topic_button:visited,
-.topic_button:active {
-  color: white;
-  background: linear-gradient(to right, #009fff, #ec2f4b);
-  transform: scale(1.05);
-  font-size: 1.4rem;
 }
 
 .topic_button h3 {
@@ -612,14 +602,6 @@ footer {
   font-weight: 700;
   margin-top: 50px;
   margin-bottom: 30px;
-}
-
-.home_intro,
-.home_info {
-  font-size: 1.2em;
-  font-weight: 300;
-  margin-bottom: 30px;
-  line-height: 1.5;
 }
 
 .home_info {
@@ -659,19 +641,22 @@ footer {
   width: 180px;
   height: 180px;
   margin: 15px;
-  background: linear-gradient(to bottom right, #6a82fb, #fc5c7d);
-  color: white;
+  background: linear-gradient(to bottom right, #383E42, #2BAF49); /* Tranziție inițială între gri închis și verde */
+  color: #383E42; /* Menținut pentru contrast; ajustează după nevoie */
   text-decoration: none;
   border-radius: 10px;
   font-size: 20px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out, background 0.5s ease-in-out; /* Include tranziția de fundal pentru hover */
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .topic_button:hover {
   transform: scale(1.1);
-  background: linear-gradient(to top left, #6a82fb, #fc5c7d);
+  background: linear-gradient(to top left, #2BAF49, #E8DE63); /* Tranziție spre galben de la verde pentru hover */
+  /* Asigură-te că tranziția de fundal este lină și naturală */
+  transition: transform 0.3s ease-in-out, background 0.5s ease; /* Ajustează timpul de tranziție pentru efectul dorit */
 }
+
 
 @media screen and (max-width: 768px) {
   .topic_button {
@@ -743,6 +728,7 @@ footer {
 
 .menu {
   display: flex;
+  background: #f1f1f1;
 }
 
 .lessons-menu {
@@ -774,7 +760,23 @@ footer {
 
 /* Media query for smaller screens */
 @media (max-width: 1300px) {
+
+  .left_menu {
+    height:100px;
+    width: 100%;
+    position: absolute;
+  }
+
+  .menu_container {
+    width: 100%;
+    /* height: 50px; */
+    align-items: center;
+    position: absolute;
+  }
+
+
   .menu {
+    position:absolute;
     display: none;
     flex-direction: column;
     position: absolute;
@@ -794,8 +796,9 @@ footer {
   }
 
   .menushow {
-    margin-top: -40px;
-    display: flex !important;
+    margin-top: -20px;
+    display: flex ;
+    width: 100%;
   }
 
   .hamburger-icon {
@@ -837,14 +840,14 @@ footer {
   }
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .chapter {
     font-size: 20px;
   }
   .tree a {
     font-size: 15px;
   }
-}
+} */
 
 @media (max-width:500px) {
   .main_nav {
@@ -1016,11 +1019,24 @@ p {
   font-family: 'Courier New', Courier, monospace;
 }
 
-/* Add this to your component or a separate CSS file */
+/* PublicApp.module.css */
+/* PublicApp.module.css */
 
 
-/* Add more styles as needed */
 
+/* Adaugă aceste stiluri în PublicApp.module.css */
+.fadeIn {
+  animation: fadeInEffect 8s ease-out forwards;
+}
+
+@keyframes fadeInEffect {
+  from { opacity:-1; }
+  to { opacity: 1; }
+}
+
+.topicActive{
+  background-color: #2BAF49; /* Exemplu de culoare de fundal */
+}
 
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './PublicApp.module.css'
 
@@ -8,6 +8,11 @@ const ChapterNavigation = ({ topicId, onLessonClick }) => {
   const [chapters, setChapters] = useState([])
   const [activeChapter, setActiveChapter] = useState(null)
   const navigate = useNavigate()
+  const menuRef = useRef(null)
+
+  const toggleMenu = () => {
+    menuRef.current?.classList.toggle(styles.menushow)
+  }
 
   const fetchChapters = async () => {
     try {
@@ -34,9 +39,13 @@ const ChapterNavigation = ({ topicId, onLessonClick }) => {
   }
 
   const handleLessonClick = lessonId => {
-    onLessonClick(lessonId)
-    navigate(`/topics/${topicId}/lessons/${lessonId}`)
-  }
+    onLessonClick(lessonId);
+    toggleMenu()
+    
+      menuRef.current?.classList.remove(styles.menushow)
+    
+    navigate(`/topics/${topicId}/lessons/${lessonId}`);
+  };
 
   if (topicId === '*') return <h2></h2>
 

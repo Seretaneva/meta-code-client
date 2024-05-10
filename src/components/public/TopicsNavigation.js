@@ -1,16 +1,17 @@
-import { useEffect, useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './PublicApp.module.css'
-import './../../App.css'
+import { useEffect, useState, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import styles from './PublicApp.module.css';
+import './../../App.css';
 
-function TopicsNavigation () {
-  const [topics, setItems] = useState([])
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+function TopicsNavigation() {
+  const [topics, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation(); // Obținere locație curentă
 
-  const toggleBtnRef = useRef(null)
-  const menuRef = useRef(null)
+  const toggleBtnRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     fetch('http://localhost:8080/topic/all', {
@@ -19,32 +20,38 @@ function TopicsNavigation () {
       .then(res => res.json())
       .then(
         result => {
-          setIsLoaded(true)
-          setItems(result)
+          setIsLoaded(true);
+          setItems(result);
         },
         error => {
-          setIsLoaded(true)
-          setError(error)
+          setIsLoaded(true);
+          setError(error);
         }
-      )
-  }, [])
+      );
+  }, []);
 
   useEffect(() => {
-    function handleClickOutside (event) {
+    function handleClickOutside(event) {
       if (
         !toggleBtnRef.current.contains(event.target) &&
         !menuRef.current.contains(event.target)
       ) {
-        setIsMenuOpen(false)
+        setIsMenuOpen(false);
       }
     }
 
-    document.addEventListener('click', handleClickOutside)
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [toggleBtnRef, menuRef])
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [toggleBtnRef, menuRef]);
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false); // Close the menu when a topic is selected
+  };
+
+  const currentTopicId = location.pathname.match(/\/topics\/(\d+)/)?.[1]; // Extract the current topic ID safely with optional chaining
 
   return (
     <div>
@@ -59,15 +66,17 @@ function TopicsNavigation () {
           <span></span>
         </div>
         <div
-          className={`${styles.topics_navbar_menu} ${
-            isMenuOpen ? styles.show : ''
-          }`}
+          className={`${styles.topics_navbar_menu} ${isMenuOpen ? styles.show : ''}`}
           ref={menuRef}
         >
           <ul>
             {topics.map(topic => (
-              <li key={topic.topicId}>
-                <Link className={styles.links} to={`/topics/${topic.topicId}`}>
+              <li key={topic.topicId} className={`${currentTopicId === topic.topicId.toString() ? styles.topicActive : ''}`}>
+                <Link
+                  className={styles.links}
+                  to={`/topics/${topic.topicId}`}
+                  onClick={handleLinkClick}
+                >
                   {topic.topicName}
                 </Link>
               </li>
@@ -76,7 +85,7 @@ function TopicsNavigation () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default TopicsNavigation
+export default TopicsNavigation;
